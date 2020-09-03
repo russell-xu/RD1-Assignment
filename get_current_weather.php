@@ -20,19 +20,23 @@ INSERT INTO current_weather(
     `CI`,
     `MaxT`
 )
-VALUES(?, ?, ?, ?, ?, ?);
+VALUES(?, ?, ?, ?, ?, ?, ?, ?);
 multi;
 $insert_current_weather = $db->prepare($sql_insert_current_weather);
 
 $location = $links['records']['location'];
 
 foreach (array_keys($location) as $key) {
-  $locationName = $location[$key]['locationName'];
-  $Wx = $location[$key]['weatherElement'][0]['time'][0]['parameter']['parameterName'];
-  $PoP = $location[$key]['weatherElement'][1]['time'][0]['parameter']['parameterName'];
-  $MinT = $location[$key]['weatherElement'][2]['time'][0]['parameter']['parameterName'];
-  $CI = $location[$key]['weatherElement'][3]['time'][0]['parameter']['parameterName'];
-  $MaxT = $location[$key]['weatherElement'][4]['time'][0]['parameter']['parameterName'];
+  for ($i = 0; $i < 3; $i++) {
+    $locationName = $location[$key]['locationName'];
+    $Wx = $location[$key]['weatherElement'][0]['time'][$i]['parameter']['parameterName'];
+    $Wx_id = $location[$key]['weatherElement'][0]['time'][$i]['parameter']['parameterValue'];
+    $PoP = $location[$key]['weatherElement'][1]['time'][$i]['parameter']['parameterName'];
+    $MinT = $location[$key]['weatherElement'][2]['time'][$i]['parameter']['parameterName'];
+    $CI = $location[$key]['weatherElement'][3]['time'][$i]['parameter']['parameterName'];
+    $MaxT = $location[$key]['weatherElement'][4]['time'][$i]['parameter']['parameterName'];
+    $time = $location[$key]['weatherElement'][0]['time'][$i]['startTime'];
 
-  $insert_current_weather->execute([$locationName, $Wx, $PoP, $MinT, $CI, $MaxT]);
+    $insert_current_weather->execute([$locationName, $Wx, $Wx_id, $PoP, $MinT, $CI, $MaxT, $time]);
+  }
 }

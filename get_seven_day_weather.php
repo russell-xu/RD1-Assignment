@@ -29,14 +29,14 @@ INSERT INTO `seven_day_weather`(
     `Td`,
     `time`
 )
-VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 multi;
 $insert_seven_day_weather = $db->prepare($sql_insert_seven_day_weather);
 
 $location = $links['records']['locations'][0]['location'];
 
 foreach (array_keys($location) as $key) {
-  for ($i = 6; $i < 13; $i += 2) {
+  for ($i = 0; $i < 13; $i += 2) {
     $locationName = $location[$key]['locationName'];
     $T = $location[$key]['weatherElement'][1]['time'][$i]['elementValue'][0]['value'];
     $RH = $location[$key]['weatherElement'][2]['time'][$i]['elementValue'][0]['value'];
@@ -44,6 +44,7 @@ foreach (array_keys($location) as $key) {
     $WS = $location[$key]['weatherElement'][4]['time'][$i]['elementValue'][0]['value'];
     $MaxAT = $location[$key]['weatherElement'][5]['time'][$i]['elementValue'][0]['value'];
     $Wx = $location[$key]['weatherElement'][6]['time'][$i]['elementValue'][0]['value'];
+    $Wx_id = $location[$key]['weatherElement'][6]['time'][$i]['elementValue'][1]['value'];
     $MaxCI = $location[$key]['weatherElement'][7]['time'][$i]['elementValue'][0]['value'];
     $MinT = $location[$key]['weatherElement'][8]['time'][$i]['elementValue'][0]['value'];
     $WeatherDescription = $location[$key]['weatherElement'][10]['time'][$i]['elementValue'][0]['value'];
@@ -53,22 +54,6 @@ foreach (array_keys($location) as $key) {
     $Td = $location[$key]['weatherElement'][14]['time'][$i]['elementValue'][0]['value'];
     $time = $location[$key]['weatherElement'][0]['time'][$i]['startTime'];
 
-    $insert_seven_day_weather->execute([$locationName, $T, $RH, $MinCI, $WS, $MaxAT, $Wx, $MaxCI, $MinT, $WeatherDescription, $MinAT, $MaxT, $WD, $Td, $time]);
-
-    // echo $locationName . "<br>";
-    // echo $T . "<br>";
-    // echo $RH . "<br>";
-    // echo $MinCI . "<br>";
-    // echo $WS . "<br>";
-    // echo $MaxAT . "<br>";
-    // echo $Wx . "<br>";
-    // echo $MaxCI . "<br>";
-    // echo $MinT . "<br>";
-    // echo $WeatherDescription . "<br>";
-    // echo $MinAT . "<br>";
-    // echo $MaxT . "<br>";
-    // echo $WD . "<br>";
-    // echo $Td . "<br>";
-    // echo $time . "<br>";
+    $insert_seven_day_weather->execute([$locationName, $T, $RH, $MinCI, $WS, $MaxAT, $Wx, $Wx_id, $MaxCI, $MinT, $WeatherDescription, $MinAT, $MaxT, $WD, $Td, $time]);
   }
 }

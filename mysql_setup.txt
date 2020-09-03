@@ -7,20 +7,24 @@ DROP TABLE IF EXISTS
 CREATE TABLE current_weather(
     `locationName` VARCHAR(20) NOT NULL,
     `Wx` VARCHAR(64) NOT NULL,
+    `Wx_id` INT(11) NOT NULL,
     `PoP` INT(11) NOT NULL,
     `MinT` INT(11) NOT NULL,
     `CI` VARCHAR(64) NOT NULL,
-    `MaxT` INT(11) NOT NULL
+    `MaxT` INT(11) NOT NULL,
+    `time` DATETIME NOT NULL
 ); DROP TABLE IF EXISTS
     two_day_weather;
 CREATE TABLE two_day_weather(
     `locationName` VARCHAR(20) NOT NULL,
     `PoP12h` INT(11) NOT NULL,
     `Wx` VARCHAR(64) NOT NULL,
+    `Wx_id` INT(11) NOT NULL,
     `AT` INT(11) NOT NULL,
     `T` INT(11) NOT NULL,
     `RH` INT(11) NOT NULL,
-    `CI` VARCHAR(64) NOT NULL,
+    `CI` INT(11) NOT NULL,
+    `CI_describe` VARCHAR(64) NOT NULL,
     `WeatherDescription` VARCHAR(64) NOT NULL,
     `PoP6h` INT(11) NOT NULL,
     `WS` INT(11) NOT NULL,
@@ -37,6 +41,7 @@ CREATE TABLE seven_day_weather(
     `WS` INT(11),
     `MaxAT` INT(11),
     `Wx` VARCHAR(64),
+    `Wx_id` INT(11),
     `MaxCI` INT(11),
     `MinT` INT(11),
     `WeatherDescription` VARCHAR(1000),
@@ -49,8 +54,8 @@ CREATE TABLE seven_day_weather(
     rainfall_data;
 CREATE TABLE rainfall_data(
     `locationName` VARCHAR(20) NOT NULL,
-    `RAIN` INT(11) UNSIGNED,
-    `HOUR_24` INT(11) UNSIGNED,
+    `RAIN` FLOAT(11),
+    `HOUR_24` FLOAT(11),
     `CITY` VARCHAR(64),
     `TOWN` VARCHAR(64),
     `ATTRIBUTE` VARCHAR(64)

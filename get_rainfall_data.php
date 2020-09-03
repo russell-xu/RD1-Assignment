@@ -25,7 +25,6 @@ multi;
 $insert_rainfall_data = $db->prepare($sql_insert_rainfall_data);
 
 $location = $links['records']['location'];
-
 foreach (array_keys($location) as $key) {
   $locationName = $location[$key]['locationName'];
   $RAIN = $location[$key]['weatherElement'][1]['elementValue'];
@@ -36,3 +35,4 @@ foreach (array_keys($location) as $key) {
 
   $insert_rainfall_data->execute([$locationName, $RAIN, $HOUR_24, $CITY, $TOWN, $ATTRIBUTE]);
 }
+exit();
