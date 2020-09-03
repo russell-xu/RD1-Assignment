@@ -11,8 +11,7 @@ CREATE TABLE current_weather(
     `MinT` INT(11) NOT NULL,
     `CI` VARCHAR(64) NOT NULL,
     `MaxT` INT(11) NOT NULL
-);
-DROP TABLE IF EXISTS
+); DROP TABLE IF EXISTS
     two_day_weather;
 CREATE TABLE two_day_weather(
     `locationName` VARCHAR(20) NOT NULL,
@@ -28,24 +27,31 @@ CREATE TABLE two_day_weather(
     `WD` VARCHAR(64) NOT NULL,
     `Td` INT(11) NOT NULL,
     `time` DATETIME NOT NULL
-);
-DROP TABLE IF EXISTS
+); DROP TABLE IF EXISTS
     seven_day_weather;
 CREATE TABLE seven_day_weather(
     `locationName` VARCHAR(20) NOT NULL,
-    `PoP12h` INT(11) NOT NULL,
-    `T` INT(11) NOT NULL,
-    `RH` INT(11) NOT NULL,
-    `MinCI` INT(11) NOT NULL,
-    `WS` INT(11) NOT NULL,
-    `MaxAT` INT(11) NOT NULL,
-    `Wx` VARCHAR(64) NOT NULL,
-    `MaxCI` INT(11) NOT NULL,
-    `MinT` INT(11) NOT NULL,
-    `WeatherDescription` VARCHAR(64) NOT NULL,
-    `MinAT` INT(11) NOT NULL,
-    `MaxT` INT(11) NOT NULL,
-    `WD` VARCHAR(64) NOT NULL,
-    `Td` INT(11) NOT NULL,
-    `time` DATETIME NOT NULL
+    `T` INT(11),
+    `RH` INT(11),
+    `MinCI` INT(11),
+    `WS` INT(11),
+    `MaxAT` INT(11),
+    `Wx` VARCHAR(64),
+    `MaxCI` INT(11),
+    `MinT` INT(11),
+    `WeatherDescription` VARCHAR(1000),
+    `MinAT` INT(11),
+    `MaxT` INT(11),
+    `WD` VARCHAR(64),
+    `Td` INT(11),
+    `time` DATETIME
+); DROP TABLE IF EXISTS
+    rainfall_data;
+CREATE TABLE rainfall_data(
+    `locationName` VARCHAR(20) NOT NULL,
+    `RAIN` INT(11) UNSIGNED,
+    `HOUR_24` INT(11) UNSIGNED,
+    `CITY` VARCHAR(64),
+    `TOWN` VARCHAR(64),
+    `ATTRIBUTE` VARCHAR(64)
 );

@@ -4,13 +4,32 @@ DELETE
 FROM
     `two_day_weather`;
 multi;
-$stmt = $db->prepare($sql_clear_data);
-$stmt->execute();
+$clear_data = $db->prepare($sql_clear_data);
+$clear_data->execute();
 
 $json_url = "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-089?Authorization=CWB-80FDA3D4-E6D7-43E1-83BB-28D6A7C568EA";
 $json = file_get_contents($json_url);
 $links = json_decode($json, TRUE);
 
+$sql_insert_two_day_weather = <<<multi
+INSERT INTO `two_day_weather`(
+    `locationName`,
+    `PoP12h`,
+    `Wx`,
+    `AT`,
+    `T`,
+    `RH`,
+    `CI`,
+    `WeatherDescription`,
+    `PoP6h`,
+    `WS`,
+    `WD`,
+    `Td`,
+    `time`
+)
+VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+multi;
+$insert_two_day_weather = $db->prepare($sql_insert_two_day_weather);
 $location = $links['records']['locations'][0]['location'];
 
 foreach (array_keys($location) as $key) {
@@ -31,26 +50,7 @@ foreach (array_keys($location) as $key) {
     $Td = $location[$key]['weatherElement'][10]['time'][$i]['elementValue'][0]['value'];
     $time = $location[$key]['weatherElement'][0]['time'][$i]['startTime'];
 
-    $sql_insert_two_day_weather = <<<multi
-    INSERT INTO `two_day_weather`(
-        `locationName`,
-        `PoP12h`,
-        `Wx`,
-        `AT`,
-        `T`,
-        `RH`,
-        `CI`,
-        `WeatherDescription`,
-        `PoP6h`,
-        `WS`,
-        `WD`,
-        `Td`,
-        `time`
-    )
-    VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    multi;
-    $stmt = $db->prepare($sql_insert_two_day_weather);
-    $stmt->execute([$locationName, $PoP12h, $Wx, $AT, $T, $RH, $CI, $WeatherDescription, $PoP6h, $WS, $WD, $Td, $time]);
+    $insert_two_day_weather->execute([$locationName, $PoP12h, $Wx, $AT, $T, $RH, $CI, $WeatherDescription, $PoP6h, $WS, $WD, $Td, $time]);
 
     // echo $locationName . "<br>";
     // echo $PoP12h . "<br>";

@@ -8,7 +8,7 @@ $dsn = "$dbms:host=$host;dbname=$dbName";
 
 try {
     $dbh = new PDO($dsn, $user, $pass);
-    echo "連接成功<br/>";
+    // echo "連接成功<br/>";
     $dbh = null;
 } catch (PDOException $e) {
     die("Error!: " . $e->getMessage() . "<br/>");
