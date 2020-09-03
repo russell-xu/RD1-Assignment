@@ -15,10 +15,12 @@ $sql_insert_current_weather = <<<multi
 INSERT INTO current_weather(
     `locationName`,
     `Wx`,
+    `Wx_id`,
     `PoP`,
     `MinT`,
     `CI`,
-    `MaxT`
+    `MaxT`,
+    `time`
 )
 VALUES(?, ?, ?, ?, ?, ?, ?, ?);
 multi;
