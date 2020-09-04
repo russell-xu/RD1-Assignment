@@ -20,25 +20,17 @@ CREATE TABLE two_day_weather(
     `Wx` VARCHAR(64) NOT NULL,
     `Wx_id` INT(11) NOT NULL,
     `AT` INT(11) NOT NULL,
-    `T` INT(11) NOT NULL,
     `CI_describe` VARCHAR(64) NOT NULL,
     `PoP6h` INT(11) NOT NULL,
-    `WS` INT(11) NOT NULL,
-    `WD` VARCHAR(64) NOT NULL,
     `time` DATETIME NOT NULL
 ); DROP TABLE IF EXISTS
     seven_day_weather;
 CREATE TABLE seven_day_weather(
     `locationName` VARCHAR(20) NOT NULL,
-    `T` INT(11) NOT NULL,
-    `WS` INT(11) NOT NULL,
-    `MaxAT` INT(11) NOT NULL,
     `Wx` VARCHAR(64) NOT NULL,
     `Wx_id` INT(11) NOT NULL,
     `MinT` INT(11) NOT NULL,
-    `MinAT` INT(11) NOT NULL,
     `MaxT` INT(11) NOT NULL,
-    `WD` VARCHAR(64) NOT NULL,
     `time` DATETIME NOT NULL
 ); DROP TABLE IF EXISTS
     rainfall_data;
@@ -50,3 +42,5 @@ CREATE TABLE rainfall_data(
     `TOWN` VARCHAR(64) NOT NULL,
     `ATTRIBUTE` VARCHAR(64) NOT NULL
 );
+
+＃晴天圖片暫時用晴時多雲代替，記得要換

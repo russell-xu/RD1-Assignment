@@ -1,4 +1,43 @@
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: Microsoft JhengHei;
+  padding-top: 100px;
+}
+
+.weather_img {
+  height: 100px;
+  padding: 10px;
+}
+
+.row {
+  padding: 20px;
+}
+
+.card {
+  margin: 10px;
+}
+
+#select_counties {
+  font-size: 20px;
+}
+
+.select_form_item {
+  padding: 0 10px;
+}
+
+#form_select {
+  width: 200px;
+}
+
+#counties {
+  width: auto;
+}
+
+.anchor_point {
+  padding-top: 80px;
+  margin-top: -70px;
 }
 /*# sourceMappingURL=style.css.map */

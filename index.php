@@ -2,11 +2,11 @@
 session_start();
 require_once("mysql_connect.php");
 
-// require_once("get_current_weather.php");
-// require_once("get_two_day_weather.php");
-// require_once("get_seven_day_weather.php");
+require_once("get_current_weather.php");
+require_once("get_two_day_weather.php");
+require_once("get_seven_day_weather.php");
 
-// require_once("get_rainfall_data.php");
+require_once("get_rainfall_data.php");
 
 $_SESSION['county'] = "臺中市";
 $county = $_SESSION['county'];
@@ -41,11 +41,8 @@ SELECT
     `Wx`,
     `Wx_id`,
     `AT`,
-    `T`,
     `CI_describe`,
     `PoP6h`,
-    `WS`,
-    `WD`,
     DATE_FORMAT(`time`, '%m/%d') AS `time`
 FROM
     `two_day_weather`
@@ -59,15 +56,10 @@ $two_day_weather->execute();
 $sql_seven_day_weather = <<<multi
 SELECT
     `locationName`,
-    `T`,
-    `WS`,
-    `MaxAT`,
     `Wx`,
     `Wx_id`,
     `MinT`,
-    `MinAT`,
     `MaxT`,
-    `WD`,
     DATE_FORMAT(`time`, '%m/%d') AS `time`
 FROM
     `seven_day_weather`
@@ -102,14 +94,36 @@ $rainfall_data->execute();
 </head>
 
 <body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">我是個人氣象站</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">選擇縣市</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#current_weather">現在天氣</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#week_weather">一週天氣</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#rainfall_observation">雨量觀測</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 
   <div class="container">
-    <div class="row">
-      <div class="col">
-        <h1>目前縣市：<?= $county ?></h1>
-        <form action="" method="post">
-          <div class="form-group">
-            <label for="counties">選擇縣市</label>
+    <h1 class="text-center"><?= $county ?></h1>
+    <div class="row" id="select_county">
+      <div class="col d-flex justify-content-center">
+        <form action="" method="post" class="form-inline" id="select_counties">
+          <div class="form-group" id="form_select">
+            <label for="counties" class="select_form_item">選擇縣市</label>
             <select class="custom-select" id="counties" name="county">
               <option value="雲林縣">-</option>
               <option value="雲林縣">雲林縣</option>
@@ -136,87 +150,89 @@ $rainfall_data->execute();
               <option value="嘉義市">嘉義市</option>
             </select>
           </div>
-          <div class="form-group">
+          <div class="form-group select_form_item">
             <input class="btn btn-primary" type="submit" name="query_county" value="搜尋">
           </div>
         </form>
       </div>
     </div>
-  </div>
-
-  <div class="container">
     <div class="row">
+      <div class="col d-flex justify-content-center">
+        <img src="./img/<?= $county ?>.jpg" alt="" class="img-fluid">
+      </div>
+    </div>
+    <h1 class="text-center anchor_point" id="current_weather">現在天氣</h1>
+    <div class="row no-gutters">
       <?php while ($current_weather_rows = $current_weather->fetch(PDO::FETCH_ASSOC)) { ?>
         <div class="col">
-          <div class="card">
-            <img src="./img/<?= $current_weather_rows['Wx_id'] ?>.svg" class="card-img-top" alt="">
+          <div class="card text-center text-white bg-dark">
+            <img src="./img/<?= $current_weather_rows['Wx_id'] ?>.svg" class="card-img-top weather_img" alt="">
             <div class="card-body">
-              <h5 class="card-title text-center"><?= $current_weather_rows['time'] ?></h5>
-              <p class="card-text text-center"><?= $current_weather_rows['Wx'] ?></p>
-              <p class="card-text text-center"><?= $current_weather_rows['MinT'] . ' - ' . $current_weather_rows['MaxT'] ?>°C</p>
-              <p class="card-text text-center"><?= $current_weather_rows['PoP'] ?>%</p>
-              <p class="card-text text-center"><?= $current_weather_rows['CI'] ?></p>
+              <h5 class="card-title">今日</h5>
+              <p class="card-text"><?= $current_weather_rows['Wx'] ?></p>
+              <p class="card-text"><?= $current_weather_rows['MinT'] . ' - ' . $current_weather_rows['MaxT'] ?>°C</p>
+              <p class="card-text">降雨機率：<?= $current_weather_rows['PoP'] ?>%</p>
+              <p class="card-text"><?= $current_weather_rows['CI'] ?></p>
             </div>
           </div>
         </div>
       <?php
       } ?>
-      <?php while ($two_day_weather_rows = $two_day_weather->fetch(PDO::FETCH_ASSOC)) { ?>
-        <div class="col">
-          <div class="card">
-            <img src="./img/<?= $two_day_weather_rows['Wx_id'] ?>.svg" class="card-img-top" alt="">
+
+      <div class="col d-flex">
+        <?php while ($two_day_weather_rows = $two_day_weather->fetch(PDO::FETCH_ASSOC)) { ?>
+          <div class="card text-center text-white bg-dark flex-fill">
+            <img src="./img/<?= $two_day_weather_rows['Wx_id'] ?>.svg" class="card-img-top weather_img" alt="">
             <div class="card-body">
-              <h5 class="card-title text-center"><?= $two_day_weather_rows['time'] ?></h5>
-              <p class="card-text text-center"><?= $two_day_weather_rows['Wx'] ?></p>
-              <p class="card-text text-center"><?= $two_day_weather_rows['AT'] ?>°C</p>
-              <p class="card-text text-center"><?= $two_day_weather_rows['T'] ?>°C</p>
-              <p class="card-text text-center"><?= $two_day_weather_rows['CI_describe'] ?></p>
-              <p class="card-text text-center"><?= $two_day_weather_rows['PoP6h'] ?>%</p>
-              <p class="card-text text-center"><?= $two_day_weather_rows['WS'] ?></p>
-              <p class="card-text text-center"><?= $two_day_weather_rows['WD'] ?></p>
+              <h5 class="card-title"><?= $two_day_weather_rows['time'] ?></h5>
+              <p class="card-text"><?= $two_day_weather_rows['Wx'] ?></p>
+              <p class="card-text">體感溫度：<?= $two_day_weather_rows['AT'] ?>°C</p>
+              <p class="card-text">降雨機率：<?= $two_day_weather_rows['PoP6h'] ?>%</p>
+              <p class="card-text"><?= $two_day_weather_rows['CI_describe'] ?></p>
             </div>
           </div>
-        </div>
-      <?php
-      } ?>
+        <?php
+        } ?>
+      </div>
     </div>
-    <div class="row">
+    <h1 class="text-center anchor_point" id="week_weather">一週天氣</h1>
+    <div class="row no-gutters">
       <?php while ($seven_day_weather_rows = $seven_day_weather->fetch(PDO::FETCH_ASSOC)) { ?>
         <div class="col">
-          <div class="card">
-            <img src="./img/<?= $seven_day_weather_rows['Wx_id'] ?>.svg" class="card-img-top" alt="">
+          <div class="card text-center text-white bg-dark">
+            <img src="./img/<?= $seven_day_weather_rows['Wx_id'] ?>.svg" class="card-img-top weather_img" alt="">
             <div class="card-body">
-              <h5 class="card-title text-center"><?= $seven_day_weather_rows['time'] ?></h5>
-              <p class="card-text text-center"><?= $seven_day_weather_rows['Wx'] ?></p>
-              <p class="card-text text-center"><?= $seven_day_weather_rows['T'] ?></p>
-              <p class="card-text text-center"><?= $seven_day_weather_rows['MinT'] . ' - ' . $seven_day_weather_rows['MaxT'] ?>°C</p>
-              <p class="card-text text-center">體感溫°C：<?= $seven_day_weather_rows['MinAT'] . ' - ' . $seven_day_weather_rows['MaxAT'] ?>°C</p>
-              <p class="card-text text-center"><?= $seven_day_weather_rows['WS'] ?></p>
-              <p class="card-text text-center"><?= $seven_day_weather_rows['WD'] ?></p>
+              <h5 class="card-title"><?= $seven_day_weather_rows['time'] ?></h5>
+              <p class="card-text"><?= $seven_day_weather_rows['MinT'] . ' - ' . $seven_day_weather_rows['MaxT'] ?>°C</p>
             </div>
           </div>
         </div>
       <?php
       } ?>
     </div>
-  </div>
-
-  <div class="container">
+    <h1 class="text-center anchor_point" id="rainfall_observation">雨量觀測</h1>
     <div class="row">
-      <?php while ($rainfall_data_rows = $rainfall_data->fetch(PDO::FETCH_ASSOC)) { ?>
-        <div class="col">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title text-center"><?= $rainfall_data_rows['locationName'] ?></h5>
-              <p class="card-text text-center">1小時累積雨量：<?= $rainfall_data_rows['RAIN'] == -998 ? 0 : $rainfall_data_rows['RAIN'] ?>mm</p>
-              <p class="card-text text-center">24小時累積雨量：<?= $rainfall_data_rows['HOUR_24'] == -998 ? 0 : $rainfall_data_rows['HOUR_24'] ?>mm</p>
-              <p class="card-text text-center"><?= $rainfall_data_rows['TOWN'] ?></p>
-              <p class="card-text text-center"><?= $rainfall_data_rows['ATTRIBUTE'] ?></p>
-            </div>
-          </div>
-        </div>
-      <?php
-      } ?>
+      <table class="table table-hover text-center">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">觀測站名</th>
+            <th scope="col">1小時累積雨量(mm)</th>
+            <th scope="col">24小時累積雨量(mm)</th>
+            <th scope="col">地區</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php while ($rainfall_data_rows = $rainfall_data->fetch(PDO::FETCH_ASSOC)) { ?>
+            <tr>
+              <th scope="row"><?= $rainfall_data_rows['locationName'] ?></th>
+              <td><?= $rainfall_data_rows['RAIN'] == -998 ? 0 : $rainfall_data_rows['RAIN'] ?></td>
+              <td><?= $rainfall_data_rows['HOUR_24'] == -998 ? 0 : $rainfall_data_rows['HOUR_24'] ?></td>
+              <td><?= $rainfall_data_rows['TOWN'] ?></td>
+            </tr>
+          <?php
+          } ?>
+        </tbody>
+      </table>
     </div>
   </div>
 

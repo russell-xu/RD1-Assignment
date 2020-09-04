@@ -35,4 +35,3 @@ foreach (array_keys($location) as $key) {
 
   $insert_rainfall_data->execute([$locationName, $RAIN, $HOUR_24, $CITY, $TOWN, $ATTRIBUTE]);
 }
-exit();

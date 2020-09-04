@@ -29,7 +29,7 @@ $insert_current_weather = $db->prepare($sql_insert_current_weather);
 $location = $links['records']['location'];
 
 foreach (array_keys($location) as $key) {
-  for ($i = 0; $i < 3; $i++) {
+  for ($i = 0; $i < 1; $i++) {
     $locationName = $location[$key]['locationName'];
     $Wx = $location[$key]['weatherElement'][0]['time'][$i]['parameter']['parameterName'];
     $Wx_id = $location[$key]['weatherElement'][0]['time'][$i]['parameter']['parameterValue'];
