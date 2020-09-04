@@ -2,11 +2,11 @@
 session_start();
 require_once("mysql_connect.php");
 
-require_once("get_current_weather.php");
-require_once("get_two_day_weather.php");
-require_once("get_seven_day_weather.php");
+require_once("get_data/get_current_weather.php");
+require_once("get_data/get_two_day_weather.php");
+require_once("get_data/get_seven_day_weather.php");
 
-require_once("get_rainfall_data.php");
+require_once("get_data/get_rainfall_data.php");
 
 $_SESSION['county'] = "臺中市";
 $county = $_SESSION['county'];
