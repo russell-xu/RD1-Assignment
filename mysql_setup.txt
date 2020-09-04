@@ -42,5 +42,3 @@ CREATE TABLE rainfall_data(
     `TOWN` VARCHAR(64) NOT NULL,
     `ATTRIBUTE` VARCHAR(64) NOT NULL
 );
-
-＃晴天圖片暫時用晴時多雲代替，記得要換

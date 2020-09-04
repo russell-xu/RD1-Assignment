@@ -105,7 +105,7 @@ $rainfall_data->execute();
           <a class="nav-link" href="#">選擇縣市</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#current_weather">現在天氣</a>
+          <a class="nav-link" href="#current_weather">近日天氣</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#week_weather">一週天氣</a>
@@ -161,16 +161,16 @@ $rainfall_data->execute();
         <img src="./img/<?= $county ?>.jpg" alt="" class="img-fluid">
       </div>
     </div>
-    <h1 class="text-center anchor_point" id="current_weather">現在天氣</h1>
+    <h1 class="text-center anchor_point" id="current_weather">近日天氣</h1>
     <div class="row no-gutters">
       <?php while ($current_weather_rows = $current_weather->fetch(PDO::FETCH_ASSOC)) { ?>
         <div class="col">
           <div class="card text-center text-white bg-dark">
-            <img src="./img/<?= $current_weather_rows['Wx_id'] ?>.svg" class="card-img-top weather_img" alt="">
+            <img src="./img/<?= $current_weather_rows['Wx_id'] ?>.svg" class="card-img-top current_weather_img" alt="">
             <div class="card-body">
               <h5 class="card-title">今日</h5>
               <p class="card-text"><?= $current_weather_rows['Wx'] ?></p>
-              <p class="card-text"><?= $current_weather_rows['MinT'] . ' - ' . $current_weather_rows['MaxT'] ?>°C</p>
+              <p class="card-text">溫度：<?= $current_weather_rows['MinT'] . ' - ' . $current_weather_rows['MaxT'] ?>°C</p>
               <p class="card-text">降雨機率：<?= $current_weather_rows['PoP'] ?>%</p>
               <p class="card-text"><?= $current_weather_rows['CI'] ?></p>
             </div>
@@ -182,7 +182,7 @@ $rainfall_data->execute();
       <div class="col d-flex">
         <?php while ($two_day_weather_rows = $two_day_weather->fetch(PDO::FETCH_ASSOC)) { ?>
           <div class="card text-center text-white bg-dark flex-fill">
-            <img src="./img/<?= $two_day_weather_rows['Wx_id'] ?>.svg" class="card-img-top weather_img" alt="">
+            <img src="./img/<?= $two_day_weather_rows['Wx_id'] ?>.svg" class="card-img-top two_weather_img" alt="">
             <div class="card-body">
               <h5 class="card-title"><?= $two_day_weather_rows['time'] ?></h5>
               <p class="card-text"><?= $two_day_weather_rows['Wx'] ?></p>
@@ -200,7 +200,7 @@ $rainfall_data->execute();
       <?php while ($seven_day_weather_rows = $seven_day_weather->fetch(PDO::FETCH_ASSOC)) { ?>
         <div class="col">
           <div class="card text-center text-white bg-dark">
-            <img src="./img/<?= $seven_day_weather_rows['Wx_id'] ?>.svg" class="card-img-top weather_img" alt="">
+            <img src="./img/<?= $seven_day_weather_rows['Wx_id'] ?>.svg" class="card-img-top seven_weather_img" alt="">
             <div class="card-body">
               <h5 class="card-title"><?= $seven_day_weather_rows['time'] ?></h5>
               <p class="card-text"><?= $seven_day_weather_rows['MinT'] . ' - ' . $seven_day_weather_rows['MaxT'] ?>°C</p>
@@ -239,6 +239,7 @@ $rainfall_data->execute();
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  <script src="main.js"></script>
 </body>
 
 </html>
