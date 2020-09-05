@@ -1,4 +1,6 @@
 let county_name = "臺中市"
+let county_featured_picture = document.querySelector("#county_featured_picture")
+county_featured_picture.src = `./img/${county_name}.jpg`
 
 document.addEventListener("DOMContentLoaded", () => {
   change_title_county()
@@ -11,8 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
 let query_county = document.querySelector('#query_county')
 query_county.addEventListener('click', () => {
   let counties = document.querySelector('#counties')
-
   county_name = counties.value
+  county_featured_picture.src = `./img/${counties.value}.jpg`
   change_title_county()
   query_current_weather()
   query_two_day_weather()
