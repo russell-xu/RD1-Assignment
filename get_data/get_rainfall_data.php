@@ -20,9 +20,8 @@ INSERT INTO `rainfall_data`(
     `TOWN`,
     `ATTRIBUTE`
 )
-VALUES(?, ?, ?, ?, ?, ?)
+VALUES
 multi;
-$insert_rainfall_data = $db->prepare($sql_insert_rainfall_data);
 
 $location = $links['records']['location'];
 foreach (array_keys($location) as $key) {
@@ -33,5 +32,8 @@ foreach (array_keys($location) as $key) {
   $TOWN = $location[$key]['parameter'][2]['parameterValue'];
   $ATTRIBUTE = $location[$key]['parameter'][4]['parameterValue'];
 
-  $insert_rainfall_data->execute([$locationName, $RAIN, $HOUR_24, $CITY, $TOWN, $ATTRIBUTE]);
+  $sql_insert_rainfall_data .= "('$locationName', '$RAIN', '$HOUR_24', '$CITY', '$TOWN', '$ATTRIBUTE'),";
 }
+
+$insert_rainfall_data = $db->prepare(substr_replace($sql_insert_rainfall_data, '', -1));
+$insert_rainfall_data->execute();

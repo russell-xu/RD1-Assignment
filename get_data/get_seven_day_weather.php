@@ -20,9 +20,8 @@ INSERT INTO `seven_day_weather`(
     `MaxT`,
     `time`
 )
-VALUES(?, ?, ?, ?, ?, ?)
+VALUES
 multi;
-$insert_seven_day_weather = $db->prepare($sql_insert_seven_day_weather);
 
 $location = $links['records']['locations'][0]['location'];
 
@@ -35,6 +34,9 @@ foreach (array_keys($location) as $key) {
     $MaxT = $location[$key]['weatherElement'][12]['time'][$i]['elementValue'][0]['value'];
     $time = $location[$key]['weatherElement'][0]['time'][$i]['startTime'];
 
-    $insert_seven_day_weather->execute([$locationName, $Wx, $Wx_id, $MinT, $MaxT, $time]);
+    $sql_insert_seven_day_weather .= "('$locationName', '$Wx', '$Wx_id', '$MinT', '$MaxT', '$time'),";
   }
 }
+
+$insert_seven_day_weather = $db->prepare(substr_replace($sql_insert_seven_day_weather, '', -1));
+$insert_seven_day_weather->execute();

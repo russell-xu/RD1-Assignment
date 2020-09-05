@@ -21,9 +21,9 @@ INSERT INTO `two_day_weather`(
     `PoP6h`,
     `time`
 )
-VALUES(?, ?, ?, ?, ?, ?, ?)
+VALUES
 multi;
-$insert_two_day_weather = $db->prepare($sql_insert_two_day_weather);
+
 $location = $links['records']['locations'][0]['location'];
 
 foreach (array_keys($location) as $key) {
@@ -36,6 +36,9 @@ foreach (array_keys($location) as $key) {
     $PoP6h = $location[$key]['weatherElement'][7]['time'][$i]['elementValue'][0]['value'];
     $time = $location[$key]['weatherElement'][0]['time'][$i]['startTime'];
 
-    $insert_two_day_weather->execute([$locationName, $Wx, $Wx_id, $AT, $CI_describe, $PoP6h, $time]);
+    $sql_insert_two_day_weather.="('$locationName', '$Wx', '$Wx_id', '$AT', '$CI_describe', '$PoP6h', '$time'),";
   }
 }
+
+$insert_two_day_weather = $db->prepare(substr_replace($sql_insert_two_day_weather, '', -1));
+$insert_two_day_weather->execute([]);

@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
 let query_county = document.querySelector('#query_county')
 query_county.addEventListener('click', () => {
   let counties = document.querySelector('#counties')
-  
+
   county_name = counties.value
   change_title_county()
   query_current_weather()
@@ -174,8 +174,8 @@ let query_rainfall_data = () => {
 
       myJson.forEach(data => {
         let locationName = data.locationName
-        let RAIN = data.RAIN
-        let HOUR_24 = data.HOUR_24
+        let RAIN = data.RAIN == -998 ? 0 : data.RAIN
+        let HOUR_24 = data.HOUR_24 == -999 ? 0 : data.HOUR_24
         let TOWN = data.TOWN
 
         rainfall_data_box.innerHTML += `

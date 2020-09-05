@@ -44,3 +44,4 @@ CREATE TABLE rainfall_data(
 );
 
 // 七天的資料裡沒用到Wx
+// 雨量的資料裡沒用到ATTRIBUTE
