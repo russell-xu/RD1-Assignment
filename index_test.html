@@ -4,7 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
   <link rel="stylesheet" href="style.css">
   <title>Document</title>
 </head>
@@ -12,7 +13,8 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <a class="navbar-brand" href="#">我是個人氣象站</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
@@ -34,7 +36,7 @@
   </nav>
 
   <div class="container">
-    <h1 class="text-center"></h1>
+    <h1 class="text-center" id="title_county"></h1>
     <div class="row" id="select_county">
       <div class="col d-flex justify-content-center">
         <form action="" method="post" class="form-inline" id="select_counties">
@@ -67,7 +69,7 @@
             </select>
           </div>
           <div class="form-group select_form_item">
-            <input class="btn btn-primary" type="submit" name="query_county" value="搜尋">
+            <input class="btn btn-primary" id="query_county" type="button" name="query_county" value="搜尋">
           </div>
         </form>
       </div>
@@ -79,44 +81,12 @@
     </div>
     <h1 class="text-center anchor_point" id="current_weather">近日天氣</h1>
     <div class="row no-gutters">
-        <div class="col">
-          <div class="card text-center text-white bg-dark">
-            <img src="./img/.svg" class="card-img-top current_weather_img" alt="">
-            <div class="card-body">
-              <h5 class="card-title">今日</h5>
-              <p class="card-text"></p>
-              <p class="card-text">溫度：°C</p>
-              <p class="card-text">降雨機率：%</p>
-              <p class="card-text"></p>
-            </div>
-          </div>
-        </div>
+      <div class="col" id="current_weather_box"></div>
 
-      <div class="col d-flex">
-          <div class="card text-center text-white bg-dark flex-fill">
-            <img src="./img/.svg" class="card-img-top two_weather_img" alt="">
-            <div class="card-body">
-              <h5 class="card-title"></h5>
-              <p class="card-text"></p>
-              <p class="card-text">體感溫度：°C</p>
-              <p class="card-text">降雨機率：%</p>
-              <p class="card-text"></p>
-            </div>
-          </div>
-      </div>
+      <div class="col d-flex" id="two_day_weather_box"></div>
     </div>
     <h1 class="text-center anchor_point" id="week_weather">一週天氣</h1>
-    <div class="row no-gutters">
-        <div class="col">
-          <div class="card text-center text-white bg-dark">
-            <img src="./img/.svg" class="card-img-top seven_weather_img" alt="">
-            <div class="card-body">
-              <h5 class="card-title"></h5>
-              <p class="card-text">°C</p>
-            </div>
-          </div>
-        </div>
-    </div>
+    <div class="row no-gutters" id="seven_day_weather_box"></div>
     <h1 class="text-center anchor_point" id="rainfall_observation">雨量觀測</h1>
     <div class="row">
       <table class="table table-hover text-center">
@@ -128,21 +98,20 @@
             <th scope="col">地區</th>
           </tr>
         </thead>
-        <tbody>
-            <tr>
-              <th scope="row"></th>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-        </tbody>
+        <tbody id="rainfall_data_box"></tbody>
       </table>
     </div>
   </div>
 
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+    crossorigin="anonymous"></script>
   <script type="text/javascript" charset="UTF-8" src="main.js"></script>
 </body>
 

@@ -6,22 +6,21 @@ $decoded = json_decode($content, true);
 
 $name = $decoded['name'];
 
-$sql_current_weather = <<<multi
+$sql_two_day_weather = <<<multi
 SELECT
     `locationName`,
     `Wx`,
     `Wx_id`,
-    `PoP`,
-    `MinT`,
-    `CI`,
-    `MaxT`,
+    `AT`,
+    `CI_describe`,
+    `PoP6h`,
     DATE_FORMAT(`time`, '%m/%d') AS `time`
 FROM
-    `current_weather`
+    `two_day_weather`
 WHERE
     `locationName` = '$name'
 multi;
-$current_weather = $db->prepare($sql_current_weather);
-$current_weather->execute();
-$rows = $current_weather->fetchAll(PDO::FETCH_ASSOC);
+$two_day_weather = $db->prepare($sql_two_day_weather);
+$two_day_weather->execute();
+$rows = $two_day_weather->fetchAll(PDO::FETCH_ASSOC);
 echo json_encode($rows, true);

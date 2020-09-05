@@ -125,7 +125,7 @@ $rainfall_data->execute();
           <div class="form-group" id="form_select">
             <label for="counties" class="select_form_item">選擇縣市</label>
             <select class="custom-select" id="counties" name="county">
-              <option value="雲林縣">-</option>
+              <option value="<?= $county ?>">-</option>
               <option value="雲林縣">雲林縣</option>
               <option value="南投縣">南投縣</option>
               <option value="連江縣">連江縣</option>
@@ -239,7 +239,6 @@ $rainfall_data->execute();
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-  <script src="main.js"></script>
 </body>
 
 </html>
