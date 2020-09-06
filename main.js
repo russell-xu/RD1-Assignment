@@ -10,9 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
   query_rainfall_data()
 })
 
-let query_county = document.querySelector('#query_county')
-query_county.addEventListener('click', () => {
-  let counties = document.querySelector('#counties')
+let counties = document.querySelector('#counties')
+counties.addEventListener('change', () => {
   county_name = counties.value
   county_featured_picture.src = `./img/${counties.value}.jpg`
   change_title_county()
@@ -43,7 +42,6 @@ let query_current_weather = () => {
       return response.json()
     })
     .then((myJson) => {
-      console.log(myJson)
       let CI = myJson[0].CI
       let MaxT = myJson[0].MaxT
       let MinT = myJson[0].MinT
@@ -83,7 +81,6 @@ let query_two_day_weather = () => {
       return response.json()
     })
     .then((myJson) => {
-      console.log(myJson)
       let two_day_weather_box = document.querySelector('#two_day_weather_box')
       two_day_weather_box.innerHTML = ''
 
@@ -128,7 +125,6 @@ let query_seven_day_weather = () => {
       return response.json()
     })
     .then((myJson) => {
-      console.log(myJson)
       let seven_day_weather_box = document.querySelector('#seven_day_weather_box')
       seven_day_weather_box.innerHTML = ''
 
@@ -170,7 +166,6 @@ let query_rainfall_data = () => {
       return response.json()
     })
     .then((myJson) => {
-      console.log(myJson)
       let rainfall_data_box = document.querySelector('#rainfall_data_box')
       rainfall_data_box.innerHTML = ''
 
