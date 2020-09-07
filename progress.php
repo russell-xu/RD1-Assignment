@@ -7,5 +7,6 @@ require_once("get_data/get_seven_day_weather.php");
 
 require_once("get_data/get_rainfall_data.php");
 
-header("Location: index_test.html");
+header("Location: view.html");
 exit();
+?>

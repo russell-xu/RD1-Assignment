@@ -3,7 +3,7 @@ $dbms = 'mysql';
 $host = 'localhost';
 $dbName = 'Weather_database';
 $user = 'root';
-$pass = ''; // MAMP:root
+$pass = 'root'; // MAMP:root
 $dsn = "$dbms:host=$host;dbname=$dbName";
 
 try {
