@@ -4,6 +4,4 @@
 1. 顯示縣市未來2天、1週天氣預報
 1. 顯示縣市各觀測站過去1小時、24小時累積雨量數據 
 1. 切換縣市時，顯示該縣市的特色圖片
-![](./readme_img/1.png)
-![](./readme_img/2.png)
-![](./readme_img/3.png)
+![](./readme_img/weather.png)
